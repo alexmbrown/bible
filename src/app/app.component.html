@@ -1,0 +1,34 @@
+<mat-toolbar class="mat-elevation-z1">
+  <h4>Bible</h4>
+  <span class="spacer"></span>
+  <button mat-button [matMenuTriggerFor]="versionMenu">{{selectedVersion}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #versionMenu="matMenu">
+    <button mat-menu-item (click)="setVersion('ESV', 'English Standard Version')">English Standard Version</button>
+    <button mat-menu-item (click)="setVersion('NIV', 'New International Version')">New International Version</button>
+    <button mat-menu-item (click)="setVersion('MSG', 'The Message')">The Message</button>
+    <button mat-menu-item (click)="setVersion('NLT', 'New Living Translation')">New Living Translation</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="bookMenu">{{selectedBook}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #bookMenu="matMenu">
+    <button mat-menu-item *ngFor="let book of versionService.getBooks() | async" (click)="selectedBook = book">{{book}}</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="chapterMenu">{{selectedChapter}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #chapterMenu="matMenu">
+    <button mat-menu-item *ngFor="let chapter of versionService.getChapters(selectedBook) | async" (click)="selectedChapter = chapter">{{chapter}}</button>
+  </mat-menu>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>invert_colors</mat-icon>
+  </button>
+  <button mat-button [matMenuTriggerFor]="sizeMenu">Font Size <mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #sizeMenu="matMenu">
+    <button mat-menu-item class="txt-sm">Small</button>
+    <button mat-menu-item class="txt-md">Medium</button>
+    <button mat-menu-item class="txt-lg">Large</button>
+  </mat-menu>
+</mat-toolbar>
+<section>
+  <div *ngFor="let verse of versionService.getText(selectedBook, selectedChapter) | async, let i = index">
+    <span class="verse-num">{{i}}</span> <span class="verse">{{verse}}</span>
+  </div>
+</section>

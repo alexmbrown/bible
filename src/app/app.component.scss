@@ -1,0 +1,34 @@
+mat-toolbar {
+  display: flex;
+}
+
+mat-input-container {
+  padding-right: 1rem;
+}
+
+mat-input-container:last-child {
+  padding-right: 0;
+}
+
+section {
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 0;
+
+  & > div {
+    margin-bottom: 0.5rem;
+  }
+
+  .verse {
+    line-height: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .verse-num {
+    text-indent: 1rem;
+    color: gray;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+}
